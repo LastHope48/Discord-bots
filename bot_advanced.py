@@ -38,4 +38,4 @@ async def yardım(ctx):
 async def choose(ctx, *choices: str):
     """Chooses between multiple choices."""
     await ctx.send(random.choice(choices))
-bot.run("MTQyNjI1MDI5Mzg3NTcwMzg2OA.GVd8PR.GGIADsax27TtyiLODCnrMRjRP17zxNnx665L4I")
+bot.run("token")
