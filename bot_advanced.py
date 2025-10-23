@@ -1,10 +1,10 @@
-import discord
+import discord,random
 from discord.ext import commands
-from bot_mantık import secret_function
+from bot_mantık import secret_function,emoji
 intents = discord.Intents.default()
 intents.message_content = True
 
-bot = commands.Bot(command_prefix='/', intents=intents)
+bot = commands.Bot(command_prefix='!', intents=intents)
 
 @bot.event
 async def on_ready():
@@ -23,4 +23,19 @@ async def yazıtura(ctx,times=1):
 @bot.command()
 async def joined(ctx, member: discord.Member):
     await ctx.send(f'{member.name} joined {discord.utils.format_dt(member.joined_at)}')
-bot.run("TOKEN")
+@bot.command()
+async def emojispawn(ctx):
+    await ctx.send(emoji(3))
+@bot.command()
+async def yardım(ctx):
+    await ctx.send("""!merhaba: Bot size kendinizi tanıtır
+!heh (sayı): sayı kısmına yazdığınız kadar 'he' der.
+!yazıtura: Yazı veya tura der
+!joined (@sunucudaki bir kişi): İstediğiniz kişinin sunucuya ne zaman katıldığını gösterir
+!emojispawn: 3 adet emoji gönderir
+!choose (seçeneklerin) choose'dan sonra yazdığğın şeylerden birini seçiyor""")
+@bot.command(description='For when you wanna settle the score some other way')
+async def choose(ctx, *choices: str):
+    """Chooses between multiple choices."""
+    await ctx.send(random.choice(choices))
+bot.run("MTQyNjI1MDI5Mzg3NTcwMzg2OA.GVd8PR.GGIADsax27TtyiLODCnrMRjRP17zxNnx665L4I")
