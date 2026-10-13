@@ -1,6 +1,8 @@
 import discord,random
 from discord.ext import commands
 from bot_mantık import secret_function,emoji
+import config
+
 intents = discord.Intents.default()
 intents.message_content = True
 
@@ -38,4 +40,4 @@ async def yardım(ctx):
 async def choose(ctx, *choices: str):
     """Chooses between multiple choices."""
     await ctx.send(random.choice(choices))
-bot.run("token")
+bot.run(config.TOKEN)

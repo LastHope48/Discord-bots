@@ -1,6 +1,8 @@
 import discord,random,os,requests
 from discord.ext import commands
 from bot_mantık import secret_function,emoji
+import config
+
 intents = discord.Intents.default()
 intents.message_content = True
 
@@ -17,15 +19,19 @@ async def merhaba(ctx):
 @bot.command()
 async def heh(ctx, count_heh = 5):
     await ctx.send("he" * count_heh)
+    
 @bot.command()
 async def yazıtura(ctx,times=1):
     await ctx.send(secret_function(times))
+
 @bot.command()
 async def joined(ctx, member: discord.Member):
     await ctx.send(f'{member.name} joined {discord.utils.format_dt(member.joined_at)}')
+
 @bot.command()
 async def emojispawn(ctx):
     await ctx.send(emoji(3))
+
 @bot.command()
 async def yardım(ctx):
     await ctx.send("""!merhaba: Bot size kendinizi tanıtır
@@ -38,6 +44,7 @@ async def yardım(ctx):
 async def choose(ctx, *choices: str):
     """Chooses between multiple choices."""
     await ctx.send(random.choice(choices))
+
 @bot.command()
 async def mem(ctx):
     files=os.listdir("images")
@@ -47,32 +54,39 @@ async def mem(ctx):
         picture = discord.File(f)
     # Daha sonra bu dosyayı bir parametre olarak gönderebiliriz!
     await ctx.send(file=picture)
+
 def get_duck_image_url():    
     url = 'https://random-d.uk/api/random'
     res = requests.get(url)
     data = res.json()
     return data['url']
+
 def get_dog_image_url():
     url='https://dog.ceo/api/breeds/image/random'
     res=requests.get(url)
     data=res.json()
     return data['message']
+
 def get_cat_image_url():
     url="https://api.thecatapi.com/v1/images/search"
     res=requests.get(url)
     data=res.json()
     return data[0]['url']
+
 @bot.command('duck')
 async def duck(ctx):
     '''duck komutunu çağırdığımızda, program ordek_resmi_urlsi_al fonksiyonunu çağırır.'''
     image_url = get_duck_image_url()
     await ctx.send(image_url)
+
 @bot.command('dog')
 async def dog(ctx):
     image_url=get_dog_image_url()
     await ctx.send(image_url)
+
 @bot.command("cat")
 async def cat(ctx):
     image_url=get_cat_image_url()
     await ctx.send(image_url)
-bot.run("token pls")
+
+bot.run(config.TOKEN)
